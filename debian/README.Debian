@@ -1,0 +1,14 @@
+# via-deps
+
+The [Aruba VIA Client for
+Linux](https://www.arubanetworks.com/techdocs/VIA/3x/content/via%20connection%20manager/linux/linux_install.htm)
+has [many failings](https://robots.org.uk/ArubaVIASucks), chief amongst them
+being its reliance on obsolete libraries that have been removed from modern
+Linux distrubtions (e.g., Qt4).
+
+This package contains copies of those obsolete libraries so that `via-ui`
+continues to function on modern Linux distributions.
+
+## Build instructions
+
+`dpkg-buildpackage -b` should be sufficient.
