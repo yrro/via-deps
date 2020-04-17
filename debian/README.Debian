@@ -11,4 +11,8 @@ continues to function on modern Linux distributions.
 
 ## Build instructions
 
-`dpkg-buildpackage -b` should be sufficient.
+```
+$ apt build-dep .
+
+$ dpkg-buildpackage -b
+```
