@@ -53,6 +53,6 @@ override_dh_dwz:
 	:
 
 override_dh_shlibdeps:
-	dh_shlibdeps -ldebian/via-deps/usr/lib/x86_64-linux-gnu/
+	dh_shlibdeps -lusr/lib/via-deps/usr/lib/x86_64-linux-gnu
 
 # vim: ts=4 sts=0 sw=4 noet

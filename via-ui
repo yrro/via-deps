@@ -1,3 +1,8 @@
+#!/bin/bash
+
+set -eu -o pipefail
+
+export LD_LIBRARY_PATH=/usr/lib/via-deps/usr/lib/x86_64-linux-gnu
 export QT_PLUGIN_PATH=/usr/lib/via-deps/usr/lib/x86_64-linux-gnu/plugins
 
 exec /usr/bin/via-ui.orig

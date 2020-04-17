@@ -1,2 +1,2 @@
-*.deb.d/* /
+*.deb.d/* /usr/lib/via-deps
 via-ui /usr/bin
