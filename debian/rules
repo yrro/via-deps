@@ -1,0 +1,58 @@
+#!/usr/bin/make -f
+
+SHELL := /bin/bash
+
+%:
+	dh $@
+
+define debs
+	libgnome-keyring0_3.12.0-1+b2_amd64.deb \
+	libqt4-network_4.8.7+dfsg-18_amd64.deb \
+	libqtcore4_4.8.7+dfsg-18_amd64.deb \
+	libqtgui4_4.8.7+dfsg-18_amd64.deb \
+	libqtdbus4_4.8.7+dfsg-18_amd64.deb \
+	libqt4-xml_4.8.7+dfsg-18_amd64.deb \
+
+endef
+
+unpacked_debs = $(addsuffix _unpack,$(debs))
+
+build: $(unpacked_debs)
+
+%_unpack: %
+	rm -rf $*.d
+	dpkg-deb -x $^ $*.d
+	touch $@
+
+MIRRORSITE := http://deb.debian.org/debian
+
+libgnome-keyring0_3.12.0-1+b2_amd64.deb: url_base=$(MIRRORSITE)/pool/main/libg/libgnome-keyring
+libgnome-keyring0_3.12.0-1+b2_amd64.deb: hash=9f873dfd927f950f9989a8cf58973986f3714cf0de232ba1e06c7878bfeefd0e
+
+libqt4-network_4.8.7+dfsg-18_amd64.deb: url_base=$(MIRRORSITE)/pool/main/q/qt4-x11
+libqt4-network_4.8.7+dfsg-18_amd64.deb: hash=c6a9453da88fabdbfc7e0e2729116229e1254189bc3b1f3fefda4c6504785884
+
+libqtcore4_4.8.7+dfsg-18_amd64.deb: url_base=$(MIRRORSITE)/pool/main/q/qt4-x11
+libqtcore4_4.8.7+dfsg-18_amd64.deb: hash=610a1e58e76860fe382ba229779429d46e4f059be086e55c593a843cf1c8c322
+
+libqtgui4_4.8.7+dfsg-18_amd64.deb: url_base=$(MIRRORSITE)/pool/main/q/qt4-x11
+libqtgui4_4.8.7+dfsg-18_amd64.deb: hash=02b03a6c732929b14c846369bfc9332abf589ca0a8492519a3ae92654d8753a5
+
+libqtdbus4_4.8.7+dfsg-18_amd64.deb: url_base=$(MIRRORSITE)/pool/main/q/qt4-x11
+libqtdbus4_4.8.7+dfsg-18_amd64.deb: hash=0863d380b63dae3a603202aa3838867d6d055d5a81a2a4a3d3cbfb472b35de68
+
+libqt4-xml_4.8.7+dfsg-18_amd64.deb: url_base=$(MIRRORSITE)/pool/main/q/qt4-x11
+libqt4-xml_4.8.7+dfsg-18_amd64.deb: hash=c42ccddbf91519395bdd8f83eab38081a3500bb41a59d9bb6d37d2d5c8dc17cb
+
+%.deb:
+	curl -f -o $@.tmp -L $(url_base)/$@
+	sha256sum -c <<< '$(hash)  $@.tmp'
+	mv $@.tmp $@
+
+override_dh_dwz:
+	:
+
+override_dh_shlibdeps:
+	dh_shlibdeps -ldebian/via-deps/usr/lib/x86_64-linux-gnu/
+
+# vim: ts=4 sts=0 sw=4 noet

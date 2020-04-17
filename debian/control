@@ -1,0 +1,16 @@
+Source: via-deps
+Maintainer: Sam Morris <sam@robots.org.uk>
+Build-Depends:
+ curl,
+ debhelper-compat (= 12),
+ libaudio-dev,
+ libmng-dev,
+Rules-Requires-Root: no
+
+Package: via-deps
+Architecture: amd64
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Enhances: via
+Description: Obsolete dependencies required by Aruba VIA
